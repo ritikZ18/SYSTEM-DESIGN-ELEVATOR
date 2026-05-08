@@ -29,6 +29,10 @@ public class ElevatorController {
 
     public void step() { service.step(); }
 
+    public List<StatusDTO> getStatus() {
+        return service.getStatus();
+    }
+
     public void run() {
         int max = 50, steps = 0;
         while (!service.allIdle() && steps++ < max) {

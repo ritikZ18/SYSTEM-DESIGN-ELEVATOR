@@ -3,24 +3,55 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Elevator LLD</title>
     <link rel="stylesheet" href="style.css">
-    <title>Document</title>
 </head>
 <body>
 
-    <h1>ELEVATOR LLD</h1>
+<h2 class="page-title">Elevator LLD </h2>
 
-    <div>
-        
+<div class="elevator-widget">
+    <div class="building-panel" id="bld"></div>
+    <div class="control-panel">
+        <div class="explanation-box" id="expl">Press UP or DOWN buttons on any floor to call a lift.</div>
+
+        <div class="section-card">
+            <div class="section-title">API health</div>
+            <div class="api-health-row">
+                <span class="api-dot api-unknown" id="api-dot"></span>
+                <span class="api-health-text" id="api-text">Checking backend...</span>
+            </div>
+            <div class="api-health-meta">
+                Endpoint: <a href="http://localhost:8080/status" target="_blank" rel="noreferrer">http://localhost:8080/status</a>
+            </div>
+            <button class="action-button" onclick="checkApiHealth(true)">Check now</button>
+        </div>
+
+        <div class="section-card">
+            <div class="section-title">Lift status</div>
+            <div class="status-chips" id="stat"></div>
+        </div>
+
+        <div class="section-card" id="inside-panel" style="display:none">
+            <div class="section-title">Inside Lift <span id="il" class="inside-lift-label"></span> - pick destination</div>
+            <div class="floor-grid" id="fg"></div>
+        </div>
+
+        <div class="section-card">
+            <div class="section-title">Controls</div>
+            <button class="action-button action-primary" onclick="doStep()">Step forward</button>
+            <button class="action-button" id="abtn" onclick="doAuto()">Auto run</button>
+            <button class="action-button action-danger" onclick="doReset()">Reset</button>
+        </div>
+
+        <div class="section-card section-log">
+            <div class="section-title">Step log</div>
+            <div class="log-list" id="lg"></div>
+        </div>
     </div>
-    
+</div>
 
-
-
-
-
-
-<script src="script.js"></script>
+<script src="elevator.js"></script>
 <script>init();</script>
 </body>
 </html>

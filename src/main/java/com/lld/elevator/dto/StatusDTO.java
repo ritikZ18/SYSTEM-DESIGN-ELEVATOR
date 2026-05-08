@@ -17,6 +17,26 @@ public class StatusDTO{
         this.pendingRequests = pendingRequests ;
     }
 
+    public String getLabel() {
+        return label;
+    }
+
+    public int getCurrentFloor() {
+        return currentFloor;
+    }
+
+    public Direction getDirection() {
+        return directions;
+    }
+
+    public ElevatorState getState() {
+        return state;
+    }
+
+    public int getPendingRequests() {
+        return pendingRequests;
+    }
+
 
     @Override
     public String toString(){ 
