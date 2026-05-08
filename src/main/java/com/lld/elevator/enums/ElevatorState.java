@@ -1,1 +1,1 @@
-public enum ElevatorState{ MOVING,STOPPED,IDLE,BROKED}
+public enum ElevatorState{ MOVING,STOPPED,IDLE,BROKEN}
