@@ -1,17 +1,25 @@
+package com.lld.elevator.model;
+
+import com.lld.elevator.enums.Direction;
+import com.lld.elevator.enums.DoorState;
+import com.lld.elevator.enums.ElevatorState;
+import java.util.TreeSet;
+import java.util.Comparator;
+
 public class Elevator { 
-    private final int if ; 
-    private final String label ; 
+    private int id ; 
+    private String label ; 
     private int currentFloor ; 
     private Direction directions ;
     private DoorState door ; 
     private ElevatorState state ; 
-    private final int capacity ; 
+    private int capacity  ; 
     private int load ; 
-    private final TreeSet<Integer> upQueue;
-    private final TreeSet<Integer> downQueue;
+    private  TreeSet<Integer> upQueue;
+    private  TreeSet<Integer> downQueue;
 
 
-    public elevator(int id, String label, int startFloor){
+    public Elevator(int id, String label, int startFloor){
         this.id = id ; 
         this.label = label ; 
         this.currentFloor = startFloor ; 
@@ -27,7 +35,7 @@ public class Elevator {
 
     // we need direction based on the current floor --> destination (UP or DOWN or SAME)
     public void addRequest(int floor, Direction reqDir){ 
-        if(redDir == Direction.UP || floor >= currentFloor){ 
+        if(reqDir == Direction.UP || floor >= currentFloor){ 
             upQueue.add(floor);
         }
         else{ 
@@ -36,6 +44,19 @@ public class Elevator {
         // take the result send to updateDirection to LOCK-IN
         updateDirection();
     }
+    // brioke down 
+    public void markBroken(){ 
+        this.state = ElevatorState.BROKEN;
+        this.directions = Direction.IDLE; 
+        upQueue.clear();
+        downQueue.clear();
+    }
+    public ElevatorState getState(){ return state ;}
+    public int totalRequests(){ return upQueue.size() + downQueue.size(); }
+
+
+
+
 
     public void updateDirection(){ 
         if(upQueue.isEmpty() && downQueue.isEmpty()){ 
@@ -52,7 +73,7 @@ public class Elevator {
             directions = hasBelow ? Direction.DOWN : Direction.UP ;
 
         }
-        state = Elevator.MOVING ;
+        state = ElevatorState.MOVING ;
     }
 
     public boolean move(int totalFloors){ 
@@ -68,8 +89,8 @@ public class Elevator {
     public boolean serveCurrentFloor(){ 
         // default falg check to false
         boolean served = false ; 
-        if(upQueue.remove(currentFloor)){ openDoor() ; served=true}
-        if(downQueue.reverseOrder(currentFloor)){ openDoor(); served=true}
+        if(upQueue.remove(currentFloor)){ openDoor() ; served=true ;}
+        if(downQueue.remove(currentFloor)){ openDoor(); served=true ;}
         if(served) closeDoor();
         updateDirection();
         return served ; 
@@ -79,7 +100,7 @@ public class Elevator {
     // wait on the way system
     public boolean canServiceOnWay(int floor, Direction reqDir){ 
         if(directions==Direction.UP && reqDir == Direction.UP && floor >= currentFloor) return true;
-        if(directions==Direction.DOWN && reqDir = Direction.DOWN && floor<=currentFloor) return true ;
+        if(directions==Direction.DOWN && reqDir == Direction.DOWN && floor<=currentFloor) return true ;
         return false ; 
     }
 
@@ -105,7 +126,7 @@ public class Elevator {
     public TreeSet<Integer> getDownQueue(){ return downQueue ;}
 
     // to return format of reuqest 
-    @override
+    @Override
     public String toString(){ 
         return String.format("LIFT %s: F%d [%s] state=%s up=%s down=%s" , label, currentFloor,directions,state,upQueue,downQueue);
     } 

@@ -1,4 +1,6 @@
-import com.lld.Elevator.enums.Direction ;
+package com.lld.elevator.model;
+
+import com.lld.elevator.enums.Direction ;
 public class Request{ 
     private final int floor ; 
     private final Direction directions; 
@@ -16,7 +18,7 @@ public class Request{
     public boolean isInternal(){ return isInternal;}
 
 
-    @override
+    @Override
     public String toString(){ 
         return String.format("Request[F%d %s %s]", floor, directions, isInternal ? "internal": "external");
     }

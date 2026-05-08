@@ -1,15 +1,20 @@
 // this method implements he DispatchStrategy, with made consolidations cases 
+package com.lld.elevator.strategy;
 
+import com.lld.elevator.enums.Direction;
+import com.lld.elevator.model.Elevator;
+import java.util.Comparator;
+import java.util.List;
 public class ScanStrategy implements DispatchStrategy { 
 
 
-    @override 
-    public Elevator disptach(List<Elevator> elevators, int floor, Direction directions, int totalFloors){ 
+    @Override 
+    public Elevator dispatch(List<Elevator> elevators, int floor, Direction directions, int totalFloors){ 
         // step 1 : any lift heading same way passing floors?
         Elevator onWay = elevators.stream()
                                   .filter(e -> !e.isFull() && !e.isBroken())
                                   .filter(e -> e.canServiceOnWay(floor,directions))
-                                  .min(Comparator.comparingInt(e -> Math.abs(e.getCurrentFloor()-floor)))\
+                                  .min(Comparator.comparingInt(e -> Math.abs(e.getCurrentFloor()-floor)))
                                   .orElse(null);
 
         if( onWay != null){ 
@@ -32,6 +37,6 @@ public class ScanStrategy implements DispatchStrategy {
         int distance = Math.abs(e.getCurrentFloor()- floor);
         if(e.isIdle()) return distance ; 
         if(e.canServiceOnWay(floor,dir)) return distance;
-        return distanec + totalFloors; //  CoW style penalty for wrong directions to avoid miscalcualtions
+        return distance + totalFloors; //  CoW style penalty for wrong directions to avoid miscalcualtions
     }
 }
