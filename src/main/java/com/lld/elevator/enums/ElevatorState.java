@@ -1,0 +1,1 @@
+public enum ElevatorState{ MOVING,STOPPED,IDLE,BROKED}
