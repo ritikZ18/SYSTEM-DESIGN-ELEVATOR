@@ -66,3 +66,7 @@ python3 -m http.server 3000
 - `GET /internal?elevId=<id>&floor=<n>` -> internal cab button
 - `GET /step` -> advance one simulation step
 - `GET /reset` -> reset elevators to initial state
+
+## VISUALS
+<img width="1704" height="1472" alt="image" src="https://github.com/user-attachments/assets/d2b605b6-c4e7-4376-91dc-8214d46693c9" />
+
